@@ -13,7 +13,7 @@ public class Breitensuche<T> implements SearchStrategy<T> {
 	}
 
 	@Override
-	public NodeList<T> search(T wert, Node<T> head) {
+	public NodeList<T> search(T suchWert, Node<T> head) {
 		NodeList<T> result = new NodeListImpl<T>();
 		NodeListImpl<T> queue = new NodeListImpl<T>();
 		queue.add(head);
@@ -23,17 +23,17 @@ public class Breitensuche<T> implements SearchStrategy<T> {
 			if (exist == false) {
 				path.add(node);
 				queue.addAll(node.getChildren());
-				if (node.getValue() == wert) {
+				if (node.getValue() == suchWert) {
 					result.add(node);
 				}
 			}
 		}
+		
 		return result;
 	}
 
 	@Override
 	public NodeList<T> getPath() {
-		// TODO Auto-generated method stub
 		return this.path;
 	}
 }

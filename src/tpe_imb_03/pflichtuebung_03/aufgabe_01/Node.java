@@ -28,11 +28,9 @@ public class Node<T> {
 	 *            Name des Knoten.
 	 * @param wert
 	 *            Wert des Knoten.
-	 * @param n
 	 */
-	public Node(String name, T wert, NodeListImpl<T> n) {
-		this(name, wert);
-		this.child = n;
+	public Node(String name, T wert) {
+		this(name, wert, new NodeListImpl<T>());
 	}
 
 	/**
@@ -42,11 +40,12 @@ public class Node<T> {
 	 *            Name des Knoten.
 	 * @param wert
 	 *            Wert des Knoten.
+	 * @param n
 	 */
-	public Node(String name, T wert) {
+	public Node(String name, T wert, NodeListImpl<T> n) {
 		this.name = name;
 		this.wert = wert;
-		this.child = new NodeListImpl<T>();
+		this.child = n;
 	}
 
 	/**

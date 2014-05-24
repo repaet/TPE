@@ -14,18 +14,19 @@ public class Tiefensuche<T> implements SearchStrategy<T> {
 	}
 
 	@Override
-	public NodeList<T> search(T wert, Node<T> head) {
+	public NodeList<T> search(T suchWert, Node<T> head) {
 		boolean exist = path.contains(head);
 		if (exist == false) {
 			path.add(head);
-			if (head.getValue() == wert) {
+			if (head.getValue() == suchWert) {
 				result.add(head);
 			}
 			NodeList<T> allChildren = head.getChildren();
 			for (Node<T> a : allChildren) {
-				search(wert, a);
+				search(suchWert, a);
 			}
 		}
+		
 		return result;
 	}
 

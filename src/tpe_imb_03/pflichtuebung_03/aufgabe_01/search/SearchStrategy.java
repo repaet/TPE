@@ -19,13 +19,13 @@ public interface SearchStrategy<T> {
 	/**
 	 * Sucht den gesuchten Wert ab dem festgelegten Startknoten.
 	 * 
-	 * @param wert
+	 * @param suchWert
 	 *            Wert nach dem gesucht werden soll.
-	 * @param node
+	 * @param head
 	 *            Startknoten des Graphen.
 	 * @return Liste der Knotennamen.
 	 */
-	public NodeList<T> search(T wert, Node<T> node);
+	public NodeList<T> search(T suchWert, Node<T> head);
 
 	/**
 	 * Gibt den Pfad der letzten Suche zurück.

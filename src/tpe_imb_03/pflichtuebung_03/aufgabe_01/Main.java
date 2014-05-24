@@ -3,7 +3,7 @@ package tpe_imb_03.pflichtuebung_03.aufgabe_01;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.Breitensuche;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.Tiefensuche;
 
-public class Simulation {
+public class Main {
 	public static void main(String args[]) {
 
 		Node<Integer> a = new Node<Integer>("A", 1);

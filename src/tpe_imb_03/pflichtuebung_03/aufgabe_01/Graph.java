@@ -9,13 +9,13 @@ public class Graph<T> {
 
 	private Node<T> head;
 
-	public Graph(Node<T> n) {
-		this.head = n;
+	public Graph(Node<T> head) {
+		this.head = head;
 	}
 
-	public NodeList<T> search(SearchStrategy<T> suche, T wert, Node<T> node) {
+	public NodeList<T> search(SearchStrategy<T> s, T suchWert) {
 		NodeList<T> result = new NodeListImpl<T>();
-		result = suche.search(wert, node);
+		result = s.search(suchWert, this.head);
 		return result;
 	}
 
@@ -24,7 +24,7 @@ public class Graph<T> {
 	}
 
 	public void setHead(Node<T> node) {
-
+		this.head = node;
 	}
 
 	public Node<T> getHead() {

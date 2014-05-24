@@ -6,38 +6,46 @@ import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.Tiefensuche;
 public class Simulation {
 	public static void main(String args[]) {
 
-		Node<Integer> a1 = new Node<Integer>("A", 2);
-		Node<Integer> a2 = new Node<Integer>("B", 4);
-		Node<Integer> a3 = new Node<Integer>("C", 3);
-		Node<Integer> a4 = new Node<Integer>("D", 5);
-		Node<Integer> a5 = new Node<Integer>("E", 3);
-		Node<Integer> a6 = new Node<Integer>("F", 2);
-		Node<Integer> a7 = new Node<Integer>("G", 5);
-		Node<Integer> a8 = new Node<Integer>("H", 7);
-		Node<Integer> a9 = new Node<Integer>("I", 9);
-		Node<Integer> a10 = new Node<Integer>("J", 7);
-		Node<Integer> a11 = new Node<Integer>("K", 11);
+		Node<Integer> a = new Node<Integer>("A", 1);
+		Node<Integer> b = new Node<Integer>("B", 2);
+		Node<Integer> c = new Node<Integer>("C", 3);
+		Node<Integer> d = new Node<Integer>("D", 4);
+		Node<Integer> e = new Node<Integer>("E", 5);
+		Node<Integer> f = new Node<Integer>("F", 6);
+		Node<Integer> g = new Node<Integer>("G", 7);
+		Node<Integer> h = new Node<Integer>("H", 8);
+		Node<Integer> i = new Node<Integer>("I", 9);
+		Node<Integer> j = new Node<Integer>("J", 10);
+		Node<Integer> k = new Node<Integer>("K", 11);
+		Node<Integer> l = new Node<Integer>("L", 12);
+		Node<Integer> m = new Node<Integer>("M", 13);
+		Node<Integer> n = new Node<Integer>("N", 14);
+		Node<Integer> o = new Node<Integer>("O", 15);
+		Node<Integer> p = new Node<Integer>("P", 16);
 
-		a1.addChild(a2);
-		a1.addChild(a3);
-		a1.addChild(a4);
-		a2.addChild(a1);
-		a2.addChild(a6);
-		a2.addChild(a7);
-		a2.addChild(a5);
-		a5.addChild(a8);
-		a7.addChild(a4);
-		a8.addChild(a2);
-		a6.addChild(a10);
-		a6.addChild(a11);
-		a5.addChild(a9);
-		a10.addChild(a9);
-		a11.addChild(a4);
-		Graph<Integer> graph = new Graph<Integer>(a1);
-		Breitensuche b = new Breitensuche();
-		System.out.println(graph.search(b, 11, a1));
-		Tiefensuche c = new Tiefensuche<>();
-		System.out.println(graph.search(c, 11, a1));
+		a.addChild(b);
+		a.addChild(c);
+		a.addChild(d);
+		b.addChild(a);
+		b.addChild(e);
+		b.addChild(f);
+		b.addChild(g);
+		e.addChild(h);
+		e.addChild(i);
+		f.addChild(j);
+		f.addChild(k);
+		c.addChild(l);
+		c.addChild(m);
+		m.addChild(n);
+		d.addChild(o);
+		d.addChild(p);
+		Graph<Integer> graph = new Graph<Integer>(a);
+		Breitensuche tief = new Breitensuche();
+		System.out.println(graph.search(tief, 11, a));
+		Tiefensuche breit = new Tiefensuche<>();
+		System.out.println(graph.search(breit, 11, a));
+		System.out.println(tief.getPath());
+		System.out.println(breit.getPath());
 
 	}
 }

@@ -4,10 +4,24 @@ import tpe_imb_03.pflichtuebung_03.aufgabe_01.Node;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.list.NodeList;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.list.NodeListImpl;
 
+/**
+ * Implementierung der Suchstrategie Breitensuche.
+ * 
+ * @param <T>
+ *            Typ des zu suchenden Elements.
+ * 
+ * @author Deniz Tas
+ * @author René Pätz
+ * @author Serhat Ekeyilmaz
+ * @version 1 24/05/2014
+ */
 public class Breitensuche<T> implements SearchStrategy<T> {
 
 	private NodeList<T> path;
 
+	/**
+	 * Konstruktor der Klasse <code>Breitensuche</code>.
+	 */
 	public Breitensuche() {
 		this.path = new NodeListImpl<T>();
 	}
@@ -28,7 +42,7 @@ public class Breitensuche<T> implements SearchStrategy<T> {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -36,4 +50,5 @@ public class Breitensuche<T> implements SearchStrategy<T> {
 	public NodeList<T> getPath() {
 		return this.path;
 	}
+
 }

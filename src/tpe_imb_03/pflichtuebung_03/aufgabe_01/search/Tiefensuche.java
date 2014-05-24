@@ -4,11 +4,25 @@ import tpe_imb_03.pflichtuebung_03.aufgabe_01.Node;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.list.NodeList;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.list.NodeListImpl;
 
+/**
+ * Implementierung der Suchstrategie Tiefensuche.
+ * 
+ * @param <T>
+ *            Typ des zu suchenden Elements.
+ * 
+ * @author Deniz Tas
+ * @author René Pätz
+ * @author Serhat Ekeyilmaz
+ * @version 1 24/05/2014
+ */
 public class Tiefensuche<T> implements SearchStrategy<T> {
 
 	private NodeList<T> path;
 	private NodeList<T> result = new NodeListImpl<T>();
 
+	/**
+	 * Konstruktor der Klasse <code>Tiefensuche</code>.
+	 */
 	public Tiefensuche() {
 		this.path = new NodeListImpl<T>();
 	}
@@ -26,7 +40,7 @@ public class Tiefensuche<T> implements SearchStrategy<T> {
 				search(suchWert, a);
 			}
 		}
-		
+
 		return result;
 	}
 

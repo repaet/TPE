@@ -41,11 +41,11 @@ public class Main {
 		d.addChild(p);
 		
 		Graph<Integer> graph = new Graph<Integer>(a);
-		SearchStrategy<Integer> tief = new Breitensuche<Integer>();
-		System.out.println(graph.search(tief, 11));
-		
-		SearchStrategy<Integer> breit = new Tiefensuche<Integer>();
+		SearchStrategy<Integer> breit = new Breitensuche<Integer>();
 		System.out.println(graph.search(breit, 11));
+		
+		SearchStrategy<Integer> tief = new Tiefensuche<Integer>();
+		System.out.println(graph.search(tief, 11));
 		
 		System.out.println(tief.getPath());
 		System.out.println(breit.getPath());

@@ -1,11 +1,11 @@
 package tpe_imb_03.pflichtuebung_03.aufgabe_01;
 
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.Breitensuche;
+import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.SearchStrategy;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.Tiefensuche;
 
 public class Main {
 	public static void main(String args[]) {
-
 		Node<Integer> a = new Node<Integer>("A", 1);
 		Node<Integer> b = new Node<Integer>("B", 2);
 		Node<Integer> c = new Node<Integer>("C", 3);
@@ -39,13 +39,15 @@ public class Main {
 		m.addChild(n);
 		d.addChild(o);
 		d.addChild(p);
+		
 		Graph<Integer> graph = new Graph<Integer>(a);
-		Breitensuche tief = new Breitensuche();
-		System.out.println(graph.search(tief, 11, a));
-		Tiefensuche breit = new Tiefensuche<>();
-		System.out.println(graph.search(breit, 11, a));
+		SearchStrategy<Integer> tief = new Breitensuche<Integer>();
+		System.out.println(graph.search(tief, 11));
+		
+		SearchStrategy<Integer> breit = new Tiefensuche<Integer>();
+		System.out.println(graph.search(breit, 11));
+		
 		System.out.println(tief.getPath());
 		System.out.println(breit.getPath());
-
 	}
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.list.NodeList;
+import tpe_imb_03.pflichtuebung_03.aufgabe_01.list.NodeListImpl;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.Breitensuche;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.SearchStrategy;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.Tiefensuche;
@@ -127,12 +128,25 @@ public class JUnitTest {
 		m.addChild(n);
 		d.addChild(o);
 		d.addChild(p);
-		
+
 		Graph<Integer> graph = new Graph<Integer>(a);
 		SearchStrategy<Integer> tief = new Tiefensuche<Integer>();
 		NodeList<Integer> list = graph.search(tief, 3);
 
 		assertTrue(list.toString().equals("[E, C]"));
+	}
+
+	@Test
+	public void copyInto() {
+		a.addChild(b);
+		a.addChild(c);
+		b.addChild(d);
+		
+		Graph<Integer> graph = new Graph<Integer>(a);
+		NodeList<Integer> list = new NodeListImpl<Integer>();
+		graph.copyInto(list);
+
+		assertTrue(list.toString().equals("[A, B, D, C]"));
 	}
 
 }

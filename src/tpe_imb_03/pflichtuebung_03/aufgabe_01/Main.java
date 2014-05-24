@@ -5,6 +5,7 @@ import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.SearchStrategy;
 import tpe_imb_03.pflichtuebung_03.aufgabe_01.search.Tiefensuche;
 
 public class Main {
+	
 	public static void main(String args[]) {
 		Node<Integer> a = new Node<Integer>("A", 1);
 		Node<Integer> b = new Node<Integer>("B", 2);

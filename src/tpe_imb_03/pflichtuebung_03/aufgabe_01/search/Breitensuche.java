@@ -26,6 +26,10 @@ public class Breitensuche<T> implements SearchStrategy<T> {
 		this.path = new NodeListImpl<T>();
 	}
 
+	/**
+	 * @see tpe_imb_03.pflichtuebung_03.aufgabe_01.search.SearchStrategy#search(java.lang.Object,
+	 *      tpe_imb_03.pflichtuebung_03.aufgabe_01.Node)
+	 */
 	@Override
 	public NodeList<T> search(T suchWert, Node<T> head) {
 		NodeList<T> result = new NodeListImpl<T>();
@@ -46,6 +50,9 @@ public class Breitensuche<T> implements SearchStrategy<T> {
 		return result;
 	}
 
+	/**
+	 * @see tpe_imb_03.pflichtuebung_03.aufgabe_01.search.SearchStrategy#getPath()
+	 */
 	@Override
 	public NodeList<T> getPath() {
 		return this.path;

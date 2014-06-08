@@ -42,8 +42,7 @@ public class Join {
 
 		private synchronized void checkList(ArrayList<Long> list) {
 			if (list.size() > Collatz.mainlist.size()) {
-				Collatz.mainlist.clear();
-				Collatz.mainlist.addAll(list);
+				Collatz.mainlist=list;
 			}
 
 		}

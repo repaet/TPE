@@ -22,7 +22,7 @@ public class JUnit {
 	@Test
 	public void folgenLaenge() throws InterruptedException{
 		new Collatz(1);
-		assertTrue((long)Collatz.mainlist.size()==525);
+		assertTrue(Collatz.mainlist.size()==525);
 	}
 	
 	

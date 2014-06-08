@@ -2,19 +2,14 @@ package tpe_imb_03.pflichtuebung_04.aufgabe_02;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.ListIterator;
 
 public class Collatz {
 	protected static int startwert;
 	public static ArrayList<Long> mainlist = new ArrayList<>();
 
-	public Collatz(int startwert) {
+	public Collatz(int startwert) throws InterruptedException {
 		Collatz.startwert = startwert;
-
-	}
-
-	public void start() {
-		Runner runner = new Runner();
+		Join.Runner runner = new Join.Runner();
 		Thread t1 = new Thread(runner);
 		Thread t2 = new Thread(runner);
 		Thread t3 = new Thread(runner);
@@ -23,29 +18,26 @@ public class Collatz {
 		t2.start();
 		t3.start();
 		t4.start();
-		while(t1.isAlive()||t2.isAlive()||t3.isAlive()||t4.isAlive()){
-			
-		}
-		System.out.println(mainlist);
-		Iterator i = new Iterator() {
-			public void getMaxFolge() {
-				ListIterator<Long> i = mainlist.listIterator();
+		Join.startLatch.countDown();
+		Join.endLatch.await();
+		new Iterator<Long>() {
+			private int index = 0;
+			public void ausgabe() {
+				Iterator<Long> i = mainlist.iterator();
 				while (i.hasNext()) {
 					System.out.println(i.next());
+					index++;
 				}
-			}
-
-			
-			public Object next() {
-				// TODO Auto-generated method stub
-				return null;
+				System.out.println("Die Folge ist "+ mainlist.size()+" Zahlen lang.");
 			}
 
 			public boolean hasNext() {
-				// TODO Auto-generated method stub
-				return false;
+				return (index < mainlist.size());
 			}
 
-		};
+			public Long next() {
+				return mainlist.get(index);
+			}
+		}.ausgabe();;
 	}
 }

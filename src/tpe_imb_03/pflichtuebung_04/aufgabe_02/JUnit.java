@@ -1,29 +1,30 @@
 package tpe_imb_03.pflichtuebung_04.aufgabe_02;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class JUnit {
+	Runner runner = new Runner();
+	Thread t1 = new Thread(runner);
+	Thread t2 = new Thread(runner);
+	Thread t3 = new Thread(runner);
+	Thread t4 = new Thread(runner);
 
-	
 	@Test
-	public void ersteZahl() throws InterruptedException{
-		new Collatz(1);
-		assertTrue(Collatz.mainlist.get(0)== 837799);
+	public void ersteZahl() throws InterruptedException {
+		t1.start();
+		t2.start();
+		t3.start();
+		t4.start();
+		equals(runner.getStartwert() == 837799);
 	}
-	
+
 	@Test
-	public void letzeZahl() throws InterruptedException{
-		new Collatz(1);
-		assertTrue(Collatz.mainlist.get(Collatz.mainlist.size()-1)== 1);
+	public void folgenLaenge() throws InterruptedException {
+		t1.start();
+		t2.start();
+		t3.start();
+		t4.start();
+		equals(runner.getLaengesteFolge() == 525);
 	}
-	
-	@Test
-	public void folgenLaenge() throws InterruptedException{
-		new Collatz(1);
-		assertTrue(Collatz.mainlist.size()==525);
-	}
-	
-	
+
 }

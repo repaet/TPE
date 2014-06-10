@@ -1,43 +1,51 @@
 package tpe_imb_03.pflichtuebung_04.aufgabe_02;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Collatz {
-	protected static int startwert;
-	public static ArrayList<Long> mainlist = new ArrayList<>();
+public class Collatz implements Iterable<Long> {
+	private long zahl;
+	private long startwert = 0;
+	private int counter = 0;
 
-	public Collatz(int startwert) throws InterruptedException {
-		Collatz.startwert = startwert;
-		Join.Runner runner = new Join.Runner();
-		Thread t1 = new Thread(runner);
-		Thread t2 = new Thread(runner);
-		Thread t3 = new Thread(runner);
-		Thread t4 = new Thread(runner);
-		t1.start();
-		t2.start();
-		t3.start();
-		t4.start();
-		Join.startLatch.countDown();
-		Join.endLatch.await();
-		new Iterator<Long>() {
-			private int index = 0;
-			public void ausgabe() {
-				Iterator<Long> i = mainlist.iterator();
-				while (i.hasNext()) {
-					System.out.println(i.next());
-					index++;
-				}
-				System.out.println("Die Folge ist "+ mainlist.size()+" Zahlen lang.");
-			}
+	public Collatz(long startwert) {
+		zahl = startwert;
+		this.startwert = startwert;
+		this.rechnen();
+	}
+
+	@Override
+	public Iterator<Long> iterator() {
+		Iterator<Long> i = new Iterator<Long>() {
 
 			public boolean hasNext() {
-				return (index < mainlist.size());
+				return zahl > 1;
 			}
 
 			public Long next() {
-				return mainlist.get(index);
+				if (zahl % 2 == 0) {
+					counter++;
+					return zahl = zahl / 2;
+				} else {
+					counter++;
+					return zahl = (3 * zahl) + 1;
+				}
 			}
-		}.ausgabe();;
+		};
+		return i;
+	}
+
+	private void rechnen() {
+		Iterator<Long> tmp = this.iterator();
+		while (tmp.hasNext()) {
+			tmp.next();
+		}
+	}
+
+	public int getCounter() {
+		return counter;
+	}
+
+	public long getStartwert() {
+		return startwert;
 	}
 }

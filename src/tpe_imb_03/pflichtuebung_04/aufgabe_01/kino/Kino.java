@@ -1,12 +1,11 @@
 package tpe_imb_03.pflichtuebung_04.aufgabe_01.kino;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import tpe_imb_03.pflichtuebung_04.aufgabe_01.film.Film;
 import tpe_imb_03.pflichtuebung_04.aufgabe_01.film.Sort;
@@ -21,7 +20,7 @@ import tpe_imb_03.pflichtuebung_04.aufgabe_01.system.IllegalTimeException;
  * @author Serhat Ekeyilmaz
  * @version 1 15/06/2014
  */
-public class Kino extends ProgrammPlan {
+public class Kino implements Iterable<Programm> {
 
 	private String name;
 	private String stadt;
@@ -156,8 +155,8 @@ public class Kino extends ProgrammPlan {
 		for (Saal saal : saele.keySet()) {
 			kino += saal.toString() + "\n";
 
-			for (Programm programm : this.saele.get(saal)) {
-				kino += programm.toString() + "\n";
+			for (Programm film : getFilmeFuerSaalMitZeiten(saal)) {
+				kino += film.toString() + "\n";
 			}
 		}
 
@@ -184,17 +183,15 @@ public class Kino extends ProgrammPlan {
 	public Programm[] getAlleFilmeMitZeiten() {
 		List<Programm> filmeMitZeiten = new ArrayList<Programm>();
 
-		for (@SuppressWarnings("rawtypes")
-		Map.Entry entry : saele.entrySet()) {
-			Object saal = entry.getKey();
+		for (Saal saal : saele.keySet()) {
 
-			for (Programm programm : this.saele.get(saal)) {
+			for (Programm programm : saele.get(saal)) {
 				filmeMitZeiten.add(programm);
 			}
 		}
 
-		// TODO sort anfangszeit
-		Collections.sort((List<Film>) filmeMitZeiten.get(0));
+		Comparator<Programm> sortStartzeit = new Programm.ProgrammStartzeitComparator();
+		Collections.sort(filmeMitZeiten, sortStartzeit);
 
 		return filmeMitZeiten.toArray(new Programm[filmeMitZeiten.size()]);
 	}
@@ -216,12 +213,12 @@ public class Kino extends ProgrammPlan {
 	public Programm[] getFilmeFuerSaalMitZeiten(Saal saal) {
 		List<Programm> filmeMitZeiten = new ArrayList<Programm>();
 
-		for (Programm programm : this.saele.get(saal)) {
+		for (Programm programm : saele.get(saal)) {
 			filmeMitZeiten.add(programm);
 		}
 
-		// TODO sort anfangszeit
-		Collections.sort((List<Film>) filmeMitZeiten.get(0));
+		Comparator<Programm> sortStartzeit = new Programm.ProgrammStartzeitComparator();
+		Collections.sort(filmeMitZeiten, sortStartzeit);
 
 		return filmeMitZeiten.toArray(new Programm[filmeMitZeiten.size()]);
 	}
@@ -232,36 +229,113 @@ public class Kino extends ProgrammPlan {
 	 * unterschiedliche Sälen läuft. Die Methode erlaubt in einer Variante die
 	 * Angabe eines Sortierkriteriums.
 	 * 
+	 * @return Alle Filme des Kinos.
+	 */
+	public Film[] getAlleFilme() {
+		return getAlleFilme(Sort.NAME);
+	}
+
+	/**
+	 * Auslesen aller Filme, die im Kino laufen als Array. Hierbei ist jeder
+	 * Film nur einmal enthalten, auch wenn er zu mehreren Zeiten und in
+	 * unterschiedliche Sälen läuft. Die Methode erlaubt in einer Variante die
+	 * Angabe eines Sortierkriteriums.
+	 * 
 	 * @param sort
+	 *            Sortierkriterium.
 	 * @return Alle Filme des Kinos.
 	 */
 	public Film[] getAlleFilme(Sort sort) {
 		List<Film> filme = new ArrayList<Film>();
 
-		for (@SuppressWarnings("rawtypes")
-		Map.Entry entry : saele.entrySet()) {
-			Object saal = entry.getKey();
+		for (Saal saal : saele.keySet()) {
 
-			for (Programm programm : this.saele.get(saal)) {
-				filme.add(programm.getFilm());
+			for (Programm programm : saele.get(saal)) {
+
+				if (!filme.contains(programm.getFilm())) {
+					filme.add(programm.getFilm());
+				}
 			}
 		}
 
+		Comparator<Film> selectSort = null;
+
 		switch (sort) {
 		case ALTERSFREIGABE:
-
+			selectSort = new Film.FilmAltersfreigabeComparator();
 			break;
 		case LAUFZEIT:
-
+			selectSort = new Film.FilmLaufzeitComparator();
 			break;
 		case NAME:
-		default:
+			selectSort = new Film.FilmNameComparator();
 			break;
 		}
 
-		Collections.sort((List<Film>) filme.get(0));
+		Collections.sort(filme, selectSort);
 
 		return filme.toArray(new Film[filme.size()]);
+	}
+
+	/**
+	 * Iterator für das Kino.
+	 * 
+	 * @see java.lang.Iterable#iterator()
+	 */
+	@Override
+	public Iterator<Programm> iterator() {
+		return new KinoIterator();
+	}
+
+	private class KinoIterator implements Iterator<Programm> {
+
+		private int index = 0;
+		private ArrayList<Programm> programm = new ArrayList<Programm>();
+
+		/**
+		 * Konstruktor der Klasse <code>KinoIterator</code>.
+		 */
+		public KinoIterator() {
+			for (ArrayList<Programm> film : Kino.this.saele.values()) {
+				programm.addAll(film);
+			}
+		}
+
+		/**
+		 * @see java.util.Iterator#hasNext()
+		 */
+		@Override
+		public boolean hasNext() {
+			if (index < programm.size()) {
+				return true;
+			}
+
+			return false;
+		}
+
+		/**
+		 * @see java.util.Iterator#next()
+		 */
+		@Override
+		public Programm next() {
+			while (this.hasNext()) {
+				Programm next = programm.get(index);
+				index++;
+
+				return next;
+			}
+
+			return null;
+		}
+
+		/**
+		 * @see java.util.Iterator#remove()
+		 */
+		@Override
+		public void remove() {
+			// not supported
+
+		}
 	}
 
 }

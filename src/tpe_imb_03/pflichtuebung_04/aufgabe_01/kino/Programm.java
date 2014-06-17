@@ -83,8 +83,9 @@ public class Programm {
 	}
 
 	/**
-	 * Auslesen des Films mit seiner Startzeit, dem Titel, der Altersfreigabe
-	 * (USK) und der Laufzeit (in Minuten).
+	 * Auslesen des <code>Films</code> mit seiner <code>Startzeit</code>, dem
+	 * <code>Titel</code>, der <code>Altersfreigabe
+	 * (USK)</code> und der <code>Laufzeit</code> (in Minuten).
 	 * 
 	 * <pre>
 	 * 17:00 -- Ice Age 3 [ohne Altersbeschränkung] 90 min
@@ -98,88 +99,17 @@ public class Programm {
 	}
 
 	/**
-	 * Comperator der Filme nach ihrem <code>Name</code> sotiert.
+	 * Comperator der das <code>Programm</code> nach seiner
+	 * <code>Startzeit</code> sortiert, falls <code>Startzeiten</code> doppelt
+	 * vorkommen werden die Filme zusätzliche nach ihrem <code>Namen</code>
+	 * sortiert.
 	 * 
 	 * @author Deniz Tas
 	 * @author René Pätz
 	 * @author Serhat Ekeyilmaz
 	 * @version 1 15/06/2014
 	 */
-	public class FilmNameComparator implements Comparator<Programm> {
-
-		/**
-		 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-		 */
-		@Override
-		public int compare(Programm o1, Programm o2) {
-			return o1.getFilm().getTITEL().compareTo(o2.getFilm().getTITEL());
-		}
-
-	}
-
-	/**
-	 * Comperator der Filme nach ihrer <code>Alterfreigabe (USK)</code> sotiert.
-	 * 
-	 * @author Deniz Tas
-	 * @author René Pätz
-	 * @author Serhat Ekeyilmaz
-	 * @version 1 15/06/2014
-	 */
-	public class FilmAltersfreigabeComparator implements Comparator<Programm> {
-
-		/**
-		 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-		 */
-		@Override
-		public int compare(Programm o1, Programm o2) {
-			if (o1.getFilm().getALTERSFREIGABE().getUSK() == o2.getFilm()
-					.getALTERSFREIGABE().getUSK()) {
-				return 0;
-			} else if (o1.getFilm().getALTERSFREIGABE().getUSK() > o2.getFilm()
-					.getALTERSFREIGABE().getUSK()) {
-				return -1;
-			} else {
-				return 1;
-			}
-		}
-
-	}
-
-	/**
-	 * Comperator der Filme nach ihrer <code>Laufzeit</code> sotiert.
-	 * 
-	 * @author Deniz Tas
-	 * @author René Pätz
-	 * @author Serhat Ekeyilmaz
-	 * @version 1 15/06/2014
-	 */
-	public class FilmLaufzeitComparator implements Comparator<Programm> {
-
-		/**
-		 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-		 */
-		@Override
-		public int compare(Programm o1, Programm o2) {
-			if (o1.getFilm().getLAUFZEIT() == o2.getFilm().getLAUFZEIT()) {
-				return 0;
-			} else if (o1.getFilm().getLAUFZEIT() > o2.getFilm().getLAUFZEIT()) {
-				return -1;
-			} else {
-				return 1;
-			}
-		}
-
-	}
-
-	/**
-	 * Comperator der Filme nach ihrer <code>Startzeit</code> sotiert.
-	 * 
-	 * @author Deniz Tas
-	 * @author René Pätz
-	 * @author Serhat Ekeyilmaz
-	 * @version 1 15/06/2014
-	 */
-	public class FilmStartzeitComparator implements Comparator<Programm> {
+	public static class ProgrammStartzeitComparator implements Comparator<Programm> {
 
 		/**
 		 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
@@ -188,8 +118,9 @@ public class Programm {
 		public int compare(Programm o1, Programm o2) {
 			if (o1.getStartzeit().getZeitInMinuten() == o2.getStartzeit()
 					.getZeitInMinuten()) {
-				return 0;
-			} else if (o1.getStartzeit().getZeitInMinuten() > o2.getStartzeit()
+				return o1.getFilm().getTITEL()
+						.compareTo(o2.getFilm().getTITEL());
+			} else if (o1.getStartzeit().getZeitInMinuten() < o2.getStartzeit()
 					.getZeitInMinuten()) {
 				return -1;
 			} else {

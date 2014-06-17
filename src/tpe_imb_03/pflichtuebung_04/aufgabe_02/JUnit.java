@@ -1,5 +1,9 @@
 package tpe_imb_03.pflichtuebung_04.aufgabe_02;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.concurrent.CountDownLatch;
+
 import org.junit.Test;
 
 public class JUnit {
@@ -15,16 +19,28 @@ public class JUnit {
 		t2.start();
 		t3.start();
 		t4.start();
-		equals(runner.getStartwert() == 837799);
+		Runner.endLatch.await();
+		
+		assertEquals(runner.getStartwert(), 837799);
 	}
 
 	@Test
 	public void folgenLaenge() throws InterruptedException {
+		Runner.endLatch = new CountDownLatch(4);
 		t1.start();
 		t2.start();
 		t3.start();
 		t4.start();
-		equals(runner.getLaengesteFolge() == 525);
+		Runner.endLatch.await();
+		
+		assertEquals(runner.getLaengesteFolge(), 525);
+	}
+
+	@Test
+	public void check() {
+		Collatz collatz = new Collatz(13);
+		
+		assertEquals(collatz.getCounter(), 10);
 	}
 
 }

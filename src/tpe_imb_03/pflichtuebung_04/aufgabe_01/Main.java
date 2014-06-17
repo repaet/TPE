@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import tpe_imb_03.pflichtuebung_04.aufgabe_01.film.Film;
+import tpe_imb_03.pflichtuebung_04.aufgabe_01.film.Sort;
 import tpe_imb_03.pflichtuebung_04.aufgabe_01.film.USK;
 import tpe_imb_03.pflichtuebung_04.aufgabe_01.kino.Kino;
 import tpe_imb_03.pflichtuebung_04.aufgabe_01.kino.Programm;
@@ -65,6 +66,11 @@ public class Main {
 		System.out.println(cinemaxx.toString());
 		
 		System.out.println(Arrays.toString(cinemaxx.getAlleFilmeMitZeiten()));
+		System.out.println(Arrays.toString(cinemaxx.getAlleFilme()));
+		System.out.println(Arrays.toString(cinemaxx.getAlleFilme(Sort.NAME)));
+		System.out.println(Arrays.toString(cinemaxx.getAlleFilme(Sort.ALTERSFREIGABE)));
+		System.out.println(Arrays.toString(cinemaxx.getAlleFilme(Sort.LAUFZEIT)));
+		System.out.println(Arrays.toString(cinemaxx.getFilmeFuerSaalMitZeiten(blauerSaal)));
 	}
 
 }

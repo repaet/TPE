@@ -1,10 +1,11 @@
 package tpe_imb_03.pflichtuebung_04.aufgabe_02;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Die Klasse Collatz kann man mit einem Startwert parameterisieren und über
- * einen Iterator die Elemente der Collatz-Folge nacheinander auslesen
+ * Die Klasse <code>Collatz</code> findet heraus, bei welcher Startzahl
+ * unterhalb von einer Millionen die längste Collatz-Folge entsteht.
  * 
  * @author Deniz Tas
  * @author René Pätz
@@ -14,18 +15,65 @@ import java.util.Iterator;
 public class Collatz implements Iterable<Long> {
 	private long zahl;
 	private long startwert = 0;
-	private int counter = 1;
+	private int folgenlaenge = 1;
+	private ArrayList<Long> elementeReihe = new ArrayList<Long>();
 
 	/**
-	 * Konstruktor der Klasse <code> Collatz <code>
+	 * Konstruktor der Klasse <code>Collatz</code>.
 	 * 
 	 * @param startwert
-	 *            Der Startwert der Collatzfolge
+	 *            Startwert der Collatzfolge.
 	 */
 	public Collatz(long startwert) {
-		zahl = startwert;
-		this.startwert = startwert;
+		this.elementeReihe.add(startwert);
+		this.zahl = startwert;
+		setStartwert(startwert);
 		this.rechnen();
+	}
+
+	/**
+	 * Erechnet die Collatzfolge.
+	 */
+	private void rechnen() {
+		Iterator<Long> iterator = this.iterator();
+
+		while (iterator.hasNext()) {
+			iterator.next();
+		}
+	}
+
+	/**
+	 * Auslesen der Folgenlänge.
+	 * 
+	 * @return folgenlaenge
+	 */
+	public int getFolgenlaenge() {
+		return folgenlaenge;
+	}
+
+	/**
+	 * Auslesen des Startwerts.
+	 * 
+	 * @return Startwert der Collatzfolge
+	 */
+	public long getStartwert() {
+		return startwert;
+	}
+
+	/**
+	 * Setzen des Startwerts.
+	 * 
+	 * @param startwert
+	 *            Startwert der Collatzfolge
+	 */
+	private void setStartwert(long startwert) {
+		if (startwert < 1) {
+			this.startwert = 1;
+		} else if (startwert > 1000000) {
+			this.startwert = 1000000;
+		}
+
+		this.startwert = startwert;
 	}
 
 	/**
@@ -34,55 +82,65 @@ public class Collatz implements Iterable<Long> {
 	 */
 	@Override
 	public Iterator<Long> iterator() {
-		Iterator<Long> i = new Iterator<Long>() {
+		Iterator<Long> iterator = new Iterator<Long>() {
 
+			/**
+			 * 
+			 * @see java.util.Iterator#hasNext()
+			 */
 			@Override
 			public boolean hasNext() {
 				return zahl > 1;
 			}
 
+			/**
+			 * 
+			 * @see java.util.Iterator#next()
+			 */
 			@Override
 			public Long next() {
 				if (zahl % 2 == 0) {
-					counter++;
-					return zahl = zahl / 2;
+					folgenlaenge++;
+					zahl = zahl / 2;
 				} else {
-					counter++;
-					return zahl = (3 * zahl) + 1;
+					folgenlaenge++;
+					zahl = (3 * zahl) + 1;
 				}
+				
+				elementeReihe.add(zahl);
+
+				return zahl;
 			}
 
+			/**
+			 * 
+			 * @see java.util.Iterator#remove()
+			 */
 			@Override
 			public void remove() {
 				zahl = 1;
 			}
 		};
-		return i;
+
+		return iterator;
 	}
 
 	/**
-	 * Rechnet die Collatzfolge
-	 */
-	private void rechnen() {
-		Iterator<Long> tmp = this.iterator();
-		while (tmp.hasNext()) {
-			tmp.next();
-		}
-	}
-
-	/**
+	 * Auslesen des aktuellen Elements.
 	 * 
-	 * @return Folgenlänge
+	 * @return aktuelles Element.
 	 */
-	public int getCounter() {
-		return counter;
+	public long getZahl() {
+		return zahl;
+	}
+	
+	/**
+	 * Auslesen der Elemente der Collatz-Folge.
+	 * 
+	 * @return Elemente der Collatz-Folge.
+	 */
+	public ArrayList<Long> getElementeReihe() {
+		return elementeReihe;
 	}
 
-	/**
-	 * 
-	 * @return Startwert der Collatzfolge
-	 */
-	public long getStartwert() {
-		return startwert;
-	}
 }

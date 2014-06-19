@@ -21,27 +21,30 @@ public class JUnit {
 		t2.start();
 		t3.start();
 		t4.start();
-		Runner.endLatch.await();
+		t1.join();
+		t2.join();
+		t3.join();
+		t4.join();
 
 		assertTrue(runner.getStartwert() == 837799);
 	}
 
 	@Test
 	public void elementeLaengsteFolge() throws InterruptedException {
-		Runner.endLatch = new CountDownLatch(4);
 		t1.start();
 		t2.start();
 		t3.start();
 		t4.start();
-		Runner.endLatch.await();
+		t1.join();
+		t2.join();
+		t3.join();
+		t4.join();
 
 		assertTrue(runner.getLaengesteFolge() == 525);
 	}
-
 	@Test
 	public void checkAufgabenblatt() {
 		Collatz collatz = new Collatz(13);
-
 		assertTrue(collatz.getFolgenlaenge() == 10);
 	}
 	

@@ -1,7 +1,6 @@
 package tpe_imb_03.pflichtuebung_04.aufgabe_02;
 
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * Speichert den Startwert und die Elementenlänge, der längsten Collatz-Folge
@@ -17,7 +16,6 @@ public class Runner implements Runnable {
 	private int laengesteFolge = 0;
 	private long startwert = 0;
 	private ArrayList<Long> elementeLaengsteReihe = new ArrayList<Long>();
-	static CountDownLatch endLatch = new CountDownLatch(4);
 
 	/**
 	 * Ruft den Collatz-Konstruktor mit Zahlen zwischen 1 und 1000000 auf.
@@ -36,7 +34,6 @@ public class Runner implements Runnable {
 		}
 
 		checkNeueListeLaenger(liste);
-		endLatch.countDown();
 	}
 
 	/**
@@ -90,7 +87,12 @@ public class Runner implements Runnable {
 		return zahl++;
 	}
 
-	public synchronized void checkNeueListeLaenger(ArrayList<Long> liste) {
+	/**
+	 * Die aktuelle längste Collatzfolge wird mit der neu erechneten Collatzfolge
+	 * verglichen.
+	 * @param liste die neu erechnete Folge
+	 */
+	private synchronized void checkNeueListeLaenger(ArrayList<Long> liste) {
 		if (liste.size() > elementeLaengsteReihe.size()) {
 			elementeLaengsteReihe = liste;
 		}
